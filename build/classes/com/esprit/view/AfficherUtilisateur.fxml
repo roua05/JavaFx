@@ -33,5 +33,6 @@
       <TextField fx:id="filtre" layoutX="135.0" layoutY="332.0" promptText="Recherchez-ici.." />
       <Button layoutX="162.0" layoutY="361.0" mnemonicParsing="false" onAction="#RechercherUser" text="Rechercher" />
       <Button fx:id="back" layoutX="470.0" layoutY="361.0" mnemonicParsing="false" text="Retour" />
+      <Button fx:id="actualiser" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Actualiser " />
    </children>
 </AnchorPane>

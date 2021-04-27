@@ -95,6 +95,8 @@ private final List<User> list= new ArrayList<>();
     private TextField filtre;
     @FXML
     private Button back;
+    @FXML
+    private Button actualiser;
     /**
      * Initializes the controller class.
      * @param url
@@ -117,7 +119,20 @@ private final List<User> list= new ArrayList<>();
             }
         }); 
         
-           
+           actualiser.setOnAction(event->{
+            try {
+              
+                Parent pagePieChart=FXMLLoader.load(getClass().getResource("/com/esprit/view/AfficherUtilisateur.fxml"));
+                Scene scene=new Scene(pagePieChart);
+                Stage stage=(Stage) ((Node) event.getSource())
+                        .getScene()
+                        .getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(AfficherUtilisateurController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });  
        back.setOnAction(event ->{
         try {
             Parent page   = FXMLLoader.load(getClass().getResource("/com/esprit/view/Accueil.fxml"));
