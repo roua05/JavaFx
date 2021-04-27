@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author Dell
  */
 public class User {
-    private int id;
+    private String id;
     private String nom;
     private String age;
     private String prenom;
@@ -30,7 +30,7 @@ public class User {
         
     }
 
-    public User(int id, String nom, String age, String prenom, String adress, String type, String email, String roles, String password, String Speciality, String reset_token, String is_confirmed, String is_activated) {
+    public User(String id, String nom, String age, String prenom, String adress, String type, String email, String roles, String password, String Speciality, String reset_token, String is_confirmed, String is_activated) {
         this.id = id;
         this.nom = nom;
         this.age = age;
@@ -44,6 +44,17 @@ public class User {
         this.reset_token = reset_token;
         this.is_confirmed = is_confirmed;
         this.is_activated = is_activated;
+    }
+
+    public User(String nom, String age, String prenom, String adress, String type, String email, String password, String Speciality) {
+        this.nom = nom;
+        this.age = age;
+        this.prenom = prenom;
+        this.adress = adress;
+        this.type = type;
+        this.email = email;
+        this.password = password;
+        this.Speciality = Speciality;
     }
 
  
@@ -66,11 +77,13 @@ public class User {
         this.is_activated = is_activated;
     }
 
-    public int getId() {
+  
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

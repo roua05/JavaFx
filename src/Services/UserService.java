@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import utils.DataSource;
 
 /**
@@ -47,12 +49,12 @@ public class UserService {
    public List<User> readAll()
    {
        String req="select * from user";
-       List<User> list= new ArrayList<>();
+      ObservableList<User>  list = FXCollections.observableArrayList();
         try {
             ste=connection.createStatement();
             rs=ste.executeQuery(req);
             while(rs.next()){
-                list.add(new User(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("adress"), rs.getString("type"), rs.getString("email"),rs.getString("roles"),rs.getString("password"),rs.getString("Speciality"),rs.getString("reset_token"),rs.getString("is_confirmed"),rs.getString("is_activated") , rs.getString("Age")) );
+                list.add(new User(rs.getString("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("adress"), rs.getString("type"), rs.getString("email"),rs.getString("roles"),rs.getString("password"),rs.getString("Speciality"),rs.getString("reset_token"),rs.getString("is_confirmed"),rs.getString("is_activated") , rs.getString("Age")) );
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
@@ -61,9 +63,8 @@ public class UserService {
    }
  
   
-    public void UpdateUser(){
-      String req="UPDATE user SET nom='souhir' WHERE password='raed'";
-    
+   public void updateUser(String id,String nom){
+String req = "UPDATE user SET nom='" + nom + "' WHERE id = '" + id + "' ";    
       try {
             ste=connection.createStatement();
          int   rs=ste.executeUpdate(req);
@@ -75,9 +76,9 @@ public class UserService {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
   } 
-    public void DeleteUser() {
+    public void DeleteUser(String id) {
         
-          String req="DELETE From user WHERE nom='souhir'";
+          String req="DELETE From user WHERE id= '" + id + "'";
     
       try {
             ste=connection.createStatement();
@@ -90,26 +91,45 @@ public class UserService {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void RechercherUser( String nom ) {
-        
-         String req="SELECT * FROM user WHERE nom ='"+nom+"'";
-     
-         try {
-              ste=connection.createStatement();
+    
+    public ArrayList<User> readmy(String mychar) {
+        ArrayList<User> form = new ArrayList<>();
+       
+          String req="SELECT * FROM user WHERE nom LIKE '%" + mychar + "%' ";
+        try {
+            ste=connection.createStatement();
               rs=ste.executeQuery(req);
-              rs.last();
-              int nbrRow= rs.getRow();
-              if (nbrRow!=0) {
-                System.out.println("l'utilisateur a été bien trouvé ");  
-              }
-              else {
-                 System.out.println("Utilisateur non trouvé ! ");    
-              }
-         }
-        catch (SQLException ex) {
+              while (rs.next()) {
+              form.add(new User(rs.getString("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("adress"), rs.getString("type"), rs.getString("email"),rs.getString("roles"),rs.getString("password"),rs.getString("Speciality"),rs.getString("reset_token"),rs.getString("is_confirmed"),rs.getString("is_activated") , rs.getString("Age")) );
+           
+        }
+        } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-}
+        }
+       
+        
+        return form;
+    }
+//    public void RechercherUser( String nom ) {
+//        
+//         String req="SELECT * FROM user WHERE nom ='"+nom+"'";
+//     
+//         try {
+//              ste=connection.createStatement();
+//              rs=ste.executeQuery(req);
+//              rs.last();
+//              int nbrRow= rs.getRow();
+//              if (nbrRow!=0) {
+//                System.out.println("l'utilisateur a été bien trouvé ");  
+//              }
+//              else {
+//                 System.out.println("Utilisateur non trouvé ! ");    
+//              }
+//         }
+//        catch (SQLException ex) {
+//            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+//}
     
    public boolean login (String email, String password)
    {
@@ -136,7 +156,7 @@ public class UserService {
             ste=connection.createStatement();
             rs=ste.executeQuery(req);
             while(rs.next()){
-                list.add(new User(rs.getInt("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("adress"), rs.getString("type"), rs.getString("email"),rs.getString("roles"),rs.getString("password"),rs.getString("Speciality"),rs.getString("reset_token"),rs.getString("is_confirmed"),rs.getString("is_activated") , rs.getString("Age")) );
+                list.add(new User(rs.getString("id"), rs.getString("nom"), rs.getString("prenom"), rs.getString("adress"), rs.getString("type"), rs.getString("email"),rs.getString("roles"),rs.getString("password"),rs.getString("Speciality"),rs.getString("reset_token"),rs.getString("is_confirmed"),rs.getString("is_activated") , rs.getString("Age")) );
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
